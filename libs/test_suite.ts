@@ -152,6 +152,7 @@ class TestSuite {
     }
     return result;
   }
+  
 }
 
 interface TestSuiteResults {
