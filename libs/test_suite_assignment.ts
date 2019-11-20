@@ -1,5 +1,6 @@
+/// <reference path="../typings/test_suite_assignment_result.d.ts" />
+
 import { QualityForward, TestCycle } from '../index';
-import { TestSuiteAssignmentResult } from './test_phase';
 
 class TestSuiteAssignment {
   qf: QualityForward;

@@ -45,4 +45,10 @@ describe('テストケースのテスト', () => {
       assert.equal(testSuite.qf.error.code, 422);
     }
   });
+  
+  it('テストケースバージョンの取得', async () => {
+    const testSuite: TestSuite = client.TestSuite();
+    const ary = await testSuite.get();
+    const versions = await ary[3].getVersions();
+  });
 });

@@ -1,3 +1,6 @@
+/// <reference path="../typings/test_suite_assignment_result.d.ts" />
+/// <reference path="../typings/test_phase_result.d.ts" />
+
 import { QualityForward, TestSuiteAssignment } from '../index';
 
 class TestPhase {
@@ -96,31 +99,4 @@ class TestPhase {
   
 }
 
-interface TestPhaseResults {
-  total_pages: number;
-  current_page: number;
-  next_url: string;
-  test_phases: TestPhaseResult[];
-}
-
-interface TestPhaseResult {
-  id: number;
-  project_id: number;
-  name: string;
-  start_on: string;
-  end_on: string;
-  redmine_issues_url: string;
-  test_suite_assignments: TestSuiteAssignmentResult[];
-  created_at: string;
-  updated_at: string;
-}
-interface TestSuiteAssignmentResult {
-  id: number;
-  test_phase_id: number;
-  test_suite_version_id: number;
-}
-
-export {
-  TestPhase,
-  TestSuiteAssignmentResult
-};
+export default TestPhase;
