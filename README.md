@@ -11,6 +11,12 @@ import { QualityForward, TestSuite} from 'qualityforward-node';
 const client = new QualityForward(API_KEY);
 ```
 
+## プロジェクト取得
+
+```js
+const project = await client.project.current();
+```
+
 ## テストスイート取得
 
 ```js
@@ -36,6 +42,27 @@ if (await testSuite.destroy()) {
   // 削除成功
 } else {
   // 削除失敗
+}
+```
+
+## テストフェーズの取得
+
+```js
+const testPhases: TestPhase[] = await client.getTestPhases();
+```
+
+## テストフェーズの作成
+
+```js
+const testPhase: TestPhase = client.TestPhase();
+testPhase.project_id = 748;
+testPhase.name = 'test';
+testPhase.start_on = new Date();
+testPhase.end_on = new Date();
+if (await testPhase.save()) {
+  console.log(testPhase)
+} else {
+  console.log(testPhase.qf.error);
 }
 ```
 

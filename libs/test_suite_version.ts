@@ -5,8 +5,18 @@ import User from './user';
 
 class TestSuiteVersion {
   qf: QualityForward;
+  id: number;
   user: User;
-  
+  test_suite_id: number;
+  name: string;
+  status: string;
+  note: string;
+  latest_test_cycle_duration_sec: number;
+  lock: boolean;
+  lock_memo: string;
+  created_at: Date;
+  updated_at: Date;
+    
   constructor(qf: QualityForward) {
     this.qf = qf;
   }
@@ -26,8 +36,7 @@ class TestSuiteVersion {
   }
   
   async getTestCases(): Promise<TestCase[]> {
-    const ary: TestCase[] = [];
-    return ary;
+    return await this.qf.testCase.get(this.test_suite_id, this.id);
   }
 }
 

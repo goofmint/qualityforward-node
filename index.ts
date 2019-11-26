@@ -3,6 +3,8 @@ import TestPhase from './libs/test_phase';
 import TestCycle from './libs/test_cycle';
 import TestSuiteVersion from './libs/test_suite_version';
 import TestCase from './libs/test_case';
+import TestResult from './libs/test_result';
+import User from './libs/user';
 
 import Project from './libs/project';
 import Request from './libs/request';
@@ -23,6 +25,7 @@ class QualityForward {
   testSuiteVersion: TestSuiteVersion;
   testCycle: TestCycle;
   testCase: TestCase;
+  testResult: TestResult;
   project: Project;
   request: Request;
   baseUrl: string;
@@ -39,6 +42,7 @@ class QualityForward {
     this.testCycle = new TestCycle(this);
     this.testCase = new TestCase(this);
     this.project = new Project(this);
+    this.testResult = new TestResult(this);
   }
   
   async getTestSuites() {
@@ -70,5 +74,6 @@ export {
   TestSuiteVersion,
   TestCycle,
   TestCase,
-  Project
+  Project,
+  User
 };

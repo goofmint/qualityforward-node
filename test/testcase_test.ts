@@ -51,4 +51,18 @@ describe('テストケースのテスト', () => {
     const ary = await testSuite.get();
     const versions = await ary[3].getVersions();
   });
+  
+  it('テストケースの取得', async () => {
+    const testSuites: TestSuite[] = await client.getTestSuites();
+    for (let key in testSuites) {
+      const testSuite = testSuites[key];
+      const versions = await testSuite.getVersions();
+      if (versions.length === 0) continue;
+      for (let k in versions) {
+        const version = versions[k];
+        const testCases = await version.getTestCases();
+        if (testCases.length === 0) continue;
+      }
+    }
+  });
 });

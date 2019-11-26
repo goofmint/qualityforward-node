@@ -9,11 +9,13 @@ class TestCycle {
   test_phase_id: number;
   status: string;
   name: string;
-  target_priorities: string[]
+  target_priorities: string[];
+  target_test_case_no_list: number[];
   start_on: Date;
   end_on: Date;
   created_at: Date;
   updated_at: Date;
+  
   
   constructor(qf: QualityForward) {
     this.qf = qf;
@@ -27,6 +29,7 @@ class TestCycle {
     for (let params of json.test_cycles) {
       const tc = new TestCycle(this.qf);
       tc.set(params);
+      tc.test_phase_id = this.test_phase_id;
       ary.push(tc);
     }
     return ary;
@@ -41,6 +44,10 @@ class TestCycle {
       }
     }
     return this;
+  }
+  
+  async getTestResults() {
+    return await this.qf.testResult.get(this.test_phase_id, this.test_suite_assignment_id, this.id);
   }
 }
 
