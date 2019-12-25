@@ -35,7 +35,7 @@ class TestResult {
 
   set(params): TestResult {
     for (let key in params) {
-      if (['created_at', 'updated_at', 'start_on', 'end_on'].indexOf(key) > -1) {
+      if (['created_at', 'updated_at', 'executed_at', 'start_on', 'end_on'].indexOf(key) > -1) {
         this[key] = new Date(params[key]);
       } else {
         this[key] = params[key];
