@@ -1,21 +1,18 @@
-import TestSuite from './libs/test_suite';
-import TestPhase from './libs/test_phase';
-import TestCycle from './libs/test_cycle';
-import TestSuiteVersion from './libs/test_suite_version';
-import TestCase from './libs/test_case';
-import TestResult from './libs/test_result';
-import User from './libs/user';
+/// <reference path="./typings/qferror.d.ts" />
 
-import Project from './libs/project';
-import Request from './libs/request';
-import TestSuiteAssignment from './libs/test_suite_assignment';
+import TestSuite from './lib/test_suite';
+import TestPhase from './lib/test_phase';
+import TestCycle from './lib/test_cycle';
+import TestSuiteVersion from './lib/test_suite_version';
+import TestCase from './lib/test_case';
+import TestResult from './lib/test_result';
+import User from './lib/user';
+
+import Project from './lib/project';
+import Request from './lib/request';
+import TestSuiteAssignment from './lib/test_suite_assignment';
 
 const BASE_URL = 'https://cloud.veriserve.co.jp';
-
-interface QFError {
-  code: number;
-  text: object;
-}
 
 class QualityForward {
   apiKey: string;
@@ -61,6 +58,10 @@ class QualityForward {
     return new TestPhase(this);
   }
   
+  TestSuiteVersion(): TestSuiteVersion {
+    return new TestSuiteVersion(this);
+  }
+  
   getUrl(path:string): string {
     return `${this.baseUrl}${path}?api_key=${this.apiKey}`;
   }
@@ -73,6 +74,7 @@ export {
   TestSuiteAssignment,
   TestSuiteVersion,
   TestCycle,
+  TestResult,
   TestCase,
   Project,
   User

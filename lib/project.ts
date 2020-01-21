@@ -1,7 +1,7 @@
-/// <reference path="../typings/tenant.d.ts" />
-/// <reference path="../typings/project.d.ts" />
-
 import { QualityForward } from '../index';
+import { ProjectResult } from '../typings/project';
+import { Tenant } from '../typings/tenant';
+
 class Project {
   qf: QualityForward;
   id: number;

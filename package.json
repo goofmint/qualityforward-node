@@ -1,10 +1,10 @@
 {
   "name": "qualityforward-node",
-  "version": "1.0.2",
+  "version": "1.0.4",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "mocha --watch-extensions ts -w --require espower-typescript/guess test/**/*.ts",
+    "test": "mocha --watch-extensions ts --require espower-typescript/guess test/**/*.ts",
     "start": "node index.js"
   },
   "author": "",

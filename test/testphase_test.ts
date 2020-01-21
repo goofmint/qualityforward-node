@@ -16,14 +16,19 @@ describe('テストフェーズのテスト', () => {
     assert.notEqual(testPhases.length, 0);
   });
   
-  it('テストフェーズの作成', async () => {
+  it('テストフェーズの作成', async function() {
+    this.timeout(10000); // タイムアウト防止
+    
     const testPhase: TestPhase = client.TestPhase();
     testPhase.project_id = 748;
     testPhase.name = 'test';
     testPhase.start_on = new Date();
     testPhase.end_on = new Date();
+    const tsv = client.TestSuiteVersion();
+    tsv.id = 13290;
+    testPhase.test_suite_versions.push(tsv);
     if (await testPhase.save()) {
-      console.log(testPhase)
+      assert.equal(testPhase.id, testPhase.test_suite_assignments[0].test_phase_id);
     } else {
       console.log(testPhase.qf.error);
     }

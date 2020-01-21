@@ -1,7 +1,7 @@
 /// <reference path="../typings/test_suite_assignment_result.d.ts" />
 /// <reference path="../typings/test_phase_result.d.ts" />
 
-import { QualityForward, TestSuiteAssignment } from '../index';
+import { QualityForward, TestSuiteAssignment, TestSuiteVersion } from '../index';
 
 class TestPhase {
   qf: QualityForward;
@@ -12,12 +12,14 @@ class TestPhase {
   end_on: Date;
   redmine_issues_url: string;
   test_suite_assignments: TestSuiteAssignment[];
+  test_suite_versions: TestSuiteVersion[];
   
   created_at: Date;
   updated_at: Date;
   
   constructor(qf: QualityForward) {
     this.qf = qf;
+    this.test_suite_versions = [];
   }
   
   async get() {
@@ -89,12 +91,20 @@ class TestPhase {
       if (typeof this[key] === 'function') {
         continue;
       }
+      if (key === 'test_suite_versions') {
+        result['test_suite_version_ids'] = this[key].map(t => t.id);
+        continue;
+      }
+      if (['start_on', 'end_on'].indexOf(key) > -1) {
+        result[key] = `${this[key].getFullYear()}-${(this[key].getMonth() + 1)}-${this[key].getDate()}`;
+        continue;
+      }
       if (['qf', 'id', 'project_id', 'created_at', 'updated_at'].indexOf(key) > -1) {
         continue;
       }
       result[key] = this[key];
     }
-    return result;
+    return {test_phase: result};
   }
   
 }
