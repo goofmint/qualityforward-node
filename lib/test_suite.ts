@@ -107,6 +107,9 @@ class TestSuite {
     const path = this.id == null ? '/api/v2/test_suites.json' : `/api/v2/test_suites/${this.id}.json`;
     const url = this.qf.getUrl(path);
     const method = this.id == null ? 'post' : 'patch';
+    if (method === 'post' && this.test_suite_versions.length === 0) {
+      throw new Error('TestSuite needs one or more test suite version. You should use "version" and "setVersion" method.');
+    }
     try {
       const json: TestSuiteResult = await this.qf.request[method](url, this.toJSON());
       this.set(json);
