@@ -79,22 +79,26 @@ class TestSuite {
   label_content10: boolean;
   use_content10: boolean;
   coverage_panel_column: number;
+  test_suite_versions: TestSuiteVersion[];
   created_at: Date;
   updated_at: Date;
   
   constructor(qf: QualityForward) {
     this.qf = qf;
+    this.test_suite_versions = [];
   }
   
-  async get(): Promise<TestSuite[]> {
+  async get(queries = {}): Promise<TestSuite[]> {
     const path = '/api/v2/test_suites.json';
     const url = this.qf.getUrl(path);
     const json: TestSuiteResults = await this.qf.request.get(url);
     const ary: TestSuite[] = [];
     for (let params of json.test_suites) {
-      const ts = new TestSuite(this.qf);
-      ts.set(params);
-      ary.push(ts);
+      if (this.qf.match(params, queries)) {
+        const ts = new TestSuite(this.qf);
+        ts.set(params);
+        ary.push(ts);
+      }
     }
     return ary;
   }
@@ -106,6 +110,12 @@ class TestSuite {
     try {
       const json: TestSuiteResult = await this.qf.request[method](url, this.toJSON());
       this.set(json);
+      for (const key in this.test_suite_versions) {
+        const tsv = this.test_suite_versions[key];
+        tsv.test_suite_id = this.id;
+        await tsv.save();
+        this.test_suite_versions[key] = tsv;
+      }
       return true;
     } catch (e) {
       this.qf.error = {
@@ -167,6 +177,15 @@ class TestSuite {
       ary.push(t);
     }
     return ary;
+  }
+  
+  version() : TestSuiteVersion {
+    const t = new TestSuiteVersion(this.qf);
+    return t;
+  }
+  
+  setVersion(version: TestSuiteVersion): void {
+    this.test_suite_versions.push(version);
   }
 }
 

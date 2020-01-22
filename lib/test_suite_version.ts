@@ -38,6 +38,37 @@ class TestSuiteVersion {
   async getTestCases(): Promise<TestCase[]> {
     return await this.qf.testCase.get(this.test_suite_id, this.id);
   }
+  
+  async save() {
+    const path = this.id == null ? `/api/v2/test_suites/${this.test_suite_id}/test_suite_versions.json` : `/api/v2/test_suites/${this.test_suite_id}/test_suite_versions/${this.id}.json`;
+    const url = this.qf.getUrl(path);
+    const method = this.id == null ? 'post' : 'patch';
+    try {
+      const json: TestSuiteVersionResult = await this.qf.request[method](url, this.toJSON());
+      this.set(json);
+      return true;
+    } catch (e) {
+      this.qf.error = {
+        code: e.status,
+        text: JSON.parse(e.response.text)
+      }
+      return false;
+    }
+  }
+
+  toJSON(): object {
+    const result = {};
+    for (let key of Object.keys(this)) {
+      if (typeof this[key] === 'function') {
+        continue;
+      }
+      if (['qf', 'id', 'created_at', 'updated_at'].indexOf(key) > -1) {
+        continue;
+      }
+      result[key] = this[key];
+    }
+    return result;
+  }
 }
 
 export default TestSuiteVersion;

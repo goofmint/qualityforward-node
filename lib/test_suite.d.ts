@@ -77,14 +77,17 @@ declare class TestSuite {
     label_content10: boolean;
     use_content10: boolean;
     coverage_panel_column: number;
+    test_suite_versions: TestSuiteVersion[];
     created_at: Date;
     updated_at: Date;
     constructor(qf: QualityForward);
-    get(): Promise<TestSuite[]>;
+    get(queries?: {}): Promise<TestSuite[]>;
     save(): Promise<boolean>;
     destroy(): Promise<boolean>;
     set(params: TestSuiteResult): TestSuite;
     toJSON(): object;
     getVersions(): Promise<TestSuiteVersion[]>;
+    version(): TestSuiteVersion;
+    setVersion(version: TestSuiteVersion): void;
 }
 export default TestSuite;

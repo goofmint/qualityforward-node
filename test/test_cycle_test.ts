@@ -11,7 +11,8 @@ describe('テストサイクルのテスト', () => {
     client = new QualityForward(process.env.API_KEY);
   });
   
-  it('テストサイクルの取得', async () => {
+  it('テストサイクルの取得', async function() {
+    this.timeout(10000); // タイムアウト防止
     const testPhases: TestPhase[] = await client.getTestPhases();
     for (let testPhase of testPhases) {
       if (testPhase.test_suite_assignments.length === 0) continue;

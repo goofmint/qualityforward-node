@@ -23,8 +23,9 @@ declare class QualityForward {
     baseUrl: string;
     error: QFError;
     constructor(apiKey: string);
-    getTestSuites(): Promise<TestSuite[]>;
-    getTestPhases(): Promise<TestPhase[]>;
+    match(params: Object, queries: Object): boolean;
+    getTestSuites(params?: {}): Promise<TestSuite[]>;
+    getTestPhases(params?: {}): Promise<TestPhase[]>;
     TestSuite(): TestSuite;
     TestPhase(): TestPhase;
     TestSuiteVersion(): TestSuiteVersion;

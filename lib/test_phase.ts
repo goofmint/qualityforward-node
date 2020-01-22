@@ -22,15 +22,17 @@ class TestPhase {
     this.test_suite_versions = [];
   }
   
-  async get() {
+  async get(queries = {}) {
     const path = '/api/v2/test_phases.json';
     const url = this.qf.getUrl(path);
     const json: TestPhaseResults = await this.qf.request.get(url);
     const ary: TestPhase[] = [];
     for (let params of json.test_phases) {
-      const ts = new TestPhase(this.qf);
-      ts.set(params);
-      ary.push(ts);
+      if (this.qf.match(params, queries)) {
+        const ts = new TestPhase(this.qf);
+        ts.set(params);
+        ary.push(ts);
+      }
     }
     return ary;
   }

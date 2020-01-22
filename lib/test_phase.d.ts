@@ -14,7 +14,7 @@ declare class TestPhase {
     created_at: Date;
     updated_at: Date;
     constructor(qf: QualityForward);
-    get(): Promise<TestPhase[]>;
+    get(queries?: {}): Promise<TestPhase[]>;
     save(): Promise<boolean>;
     destroy(): Promise<boolean>;
     set(params: TestPhaseResult): TestPhase;

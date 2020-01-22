@@ -42,12 +42,22 @@ class QualityForward {
     this.testResult = new TestResult(this);
   }
   
-  async getTestSuites() {
-    return await this.testSuite.get();
+  match(params: Object, queries: Object) {
+    if (Object.keys(queries).length == 0)
+      return true;
+    for (const key in queries) {
+      if (params[key] !== queries[key])
+        return false;
+    }
+    return true;
   }
   
-  async getTestPhases() {
-    return await this.testPhase.get();
+  async getTestSuites(params = {}) {
+    return await this.testSuite.get(params);
+  }
+  
+  async getTestPhases(params = {}) {
+    return await this.testPhase.get(params);
   }
   
   TestSuite(): TestSuite {

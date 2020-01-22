@@ -17,5 +17,7 @@ declare class TestSuiteVersion {
     constructor(qf: QualityForward);
     set(params: TestSuiteVersionResult): TestSuiteVersion;
     getTestCases(): Promise<TestCase[]>;
+    save(): Promise<boolean>;
+    toJSON(): object;
 }
 export default TestSuiteVersion;
